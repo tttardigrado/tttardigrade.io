@@ -13,6 +13,7 @@ Nelma Moreira, Rogério Reis, *Gonçalo Teixeira* @ INForum 26
 * On the Complexity of Multientry DFAs   
 <small>
 Nelma Moreira, Rogério Reis, *Gonçalo Teixeira* @ DCFS 26  
+[[doi]](https://link.springer.com/chapter/10.1007/978-3-032-32016-2_12)
 [[preprint]](/assets/papers/MRT26-Preprint.pdf)
 [[bib]](/assets/bibs/MRT26.bib)
 </small>
