@@ -5,6 +5,11 @@ draft: false
 
 ## 2026
 
+* [Minimization II: Brzozowski Strikes Back]()  
+<small>
+INForum 26 @ NOVA FCT, Lisbon [[slides]](/assets/talks/inforum26.pdf)
+</small>
+
 * [On the Complexity of Multi-entry DFAs]()  
 <small>
 DCFS 26 @ Queens University, Kingston [[slides]](/assets/talks/dcfs.pdf)

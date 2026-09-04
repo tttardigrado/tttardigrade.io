@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Algebraic Automata Theory #1 - Semigroups</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <style></style>
+      <link rel="stylesheet" href="/style.css">
+  </head>
+<body>
+<header class="container">
+  <nav>
+    <ul>
+      <li><strong><a href="/" class="contrast">tttardigrado</a></strong></li>
+    </ul>
+    <ul>
+              <li><a href="/talks.html">Talks</a></li>
+              <li><a href="/papers.html">Papers</a></li>
+              <li><a href="/posts">Blog</a></li>
+          </ul>
+  </nav>
+</header>
+ 
+<main class="container">
+  <hgroup>
+    <h1>Algebraic Automata Theory #1 - Semigroups</h1>
+          <p>2026-09-02</p>
+      </hgroup>
+  <p>Most intro courses to automata theory only cover the classical theory of authomata: DFAs, NFAs, regular expressions, their properties, and the conversions between them. But some important results in automata theory cannot be proved using only those methods. Sometimes we need to reach to the scary algebraic structures of semigroups and monoids.</p>
+  <p>Algebraic Automata Theory studies the (perhaps surprising) connection between automata and algebra. This series of posts are my personal notes as I try to learn AAT. I’m sure they contain many errors, but I hope that they are usefull to someone trying to learn it too.</p>
+  <p>Since we want to study the connection between algebra and automata, we need to start with some algebrai concepts.</p>
+  <blockquote>
+  <p>Def: A semigroup is a pair <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>,</mo><mo>⋅</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S = (S, \cdot)</annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> is a set and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⋅</mo><mo>:</mo><mi>S</mi><mo>×</mo><mi>S</mi><mo>→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\cdot : S \times S \to S</annotation></semantics></math> is an associative binary operation on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>, that is: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⋅</mo><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>⋅</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>⋅</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mi>c</mi><mspace width="2.0em"></mspace><mo>∀</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo>∈</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">
+  a \cdot (b \cdot c) = (a \cdot b) \cdot c \qquad \forall a,b,c \in S
+  </annotation></semantics></math></p>
+  </blockquote>
+  <p>Since the semigroup operation (often called “multiplication”) is associative, we don’t need to worry about parenthesis since the evaluation of expressions becomes unambiguous. It is common to use the notation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>a</mi><mi>n</mi></msup><annotation encoding="application/x-tex">a^n</annotation></semantics></math> to denote the multiplication of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mstyle mathvariant="double-struck"><mi>ℕ</mi></mstyle></mrow><annotation encoding="application/x-tex">n \in \mathbb N</annotation></semantics></math> copies of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">a\in S</annotation></semantics></math>.</p>
+  <blockquote>
+  <p>Lemma: The following properties hold:<br />
+  1. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>n</mi></msup><msup><mi>a</mi><mi>m</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mi>m</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a^n a^m = a^{n+m}</annotation></semantics></math><br />
+  2. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>a</mi><mi>n</mi></msup><msup><mo stretchy="false" form="postfix">)</mo><mi>m</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>n</mi><mi>m</mi></mrow></msup></mrow><annotation encoding="application/x-tex">(a^n)^m = a^{nm}</annotation></semantics></math></p>
+  </blockquote>
+  <p>There are some important kinds of semigroup elements with certain properties:<br />
+  1. Left identities: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mn>1</mn><mi>l</mi></msub><mo>⋅</mo><mi>a</mi><mo>=</mo><mi>a</mi><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1_l \cdot a = a ~ (\forall a \in S)</annotation></semantics></math><br />
+  2. Right identities: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⋅</mo><msub><mn>1</mn><mi>r</mi></msub><mo>=</mo><mi>a</mi><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a\cdot 1_r = a ~ (\forall a \in S)</annotation></semantics></math><br />
+  3. Left zeroes: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mn>0</mn><mi>l</mi></msub><mo>⋅</mo><mi>a</mi><mo>=</mo><msub><mn>0</mn><mi>l</mi></msub><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0_l\cdot a = 0_l ~ (\forall a \in S)</annotation></semantics></math><br />
+  4. Right zeroes: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⋅</mo><msub><mn>0</mn><mi>r</mi></msub><mo>=</mo><msub><mn>0</mn><mi>r</mi></msub><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a\cdot 0_r = 0_r ~ (\forall a \in S)</annotation></semantics></math><br />
+  5. Identities: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>⋅</mo><mi>a</mi><mo>=</mo><mi>a</mi><mo>=</mo><mi>a</mi><mo>⋅</mo><mn>1</mn><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1 \cdot a = a = a \cdot 1 ~ (\forall a \in S)</annotation></semantics></math><br />
+  6. Zeroes: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>⋅</mo><mi>a</mi><mo>=</mo><mn>0</mn><mo>=</mo><mi>a</mi><mo>⋅</mo><mn>0</mn><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0 \cdot a = 0 = a \cdot 0 ~ (\forall a \in S)</annotation></semantics></math></p>
+  <blockquote>
+  <p>Lemma: A semigroup can have, at most, one identity and one zero element.</p>
+  <p>Proof: Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a, b</annotation></semantics></math> be two identity elements. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mi>a</mi><mi>b</mi><mo>=</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a = ab = b</annotation></semantics></math>. The same argument applies to the other case.</p>
+  </blockquote>
+  <p>A semigroup with identity is called a monoid (which are also important for automata theory):</p>
+  <blockquote>
+  <p>Def: A monoid is a triple <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><mo>⋅</mo><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M = (M, \cdot, 1)</annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> is a set, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⋅</mo><mo>:</mo><mi>M</mi><mo>×</mo><mi>M</mi><mo>→</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">\cdot : M \times M \to M</annotation></semantics></math> is an associative binary operation on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>∈</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">1\in M</annotation></semantics></math> is an identity element, that is: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⋅</mo><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>⋅</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>⋅</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mi>c</mi><mspace width="2.0em"></mspace><mo>∀</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo>∈</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">
+  a \cdot (b \cdot c) = (a \cdot b) \cdot c \qquad \forall a,b,c \in M
+  </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⋅</mo><mn>1</mn><mo>=</mo><mi>a</mi><mo>=</mo><mn>1</mn><mo>⋅</mo><mi>a</mi><mspace width="2.0em"></mspace><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">
+  a \cdot 1 = a = 1 \cdot a \qquad \forall a \in M
+  </annotation></semantics></math></p>
+  </blockquote>
+  <p>Any semigroup <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> can be turned into a monoid <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>S</mi><mn>1</mn></msup><annotation encoding="application/x-tex">S^1</annotation></semantics></math>: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>S</mi><mn>1</mn></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left"><mi>S</mi></mtd><mtd columnalign="left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>S</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> has an identity element</mtext></mrow></mtd></mtr><mtr><mtd columnalign="left"><mi>S</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mtd><mtd columnalign="left"><mtext mathvariant="normal">otherwise</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+  S^1 = \begin{cases}
+      S &amp; \text{if } S \text{ has an identity element}\\
+      S\cup\{1\} &amp; \text{otherwise}
+  \end{cases}
+  </annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>∉</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">1 \notin S</annotation></semantics></math> is the identity of the monoid and the multiplication is extended accordingly.</p>
+  <p>There are other important kinds of semigroups:<br />
+  1. Finite Semigroups: the carrier set is finite<br />
+  2. Abelian Semigroups: the multiplication is commutative<br />
+  3. Groups: All elements have inverses</p>
+  <p>Another important kind of element of a semigroup are the idempotents. An element <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">i \in S</annotation></semantics></math> is said to be idempotent if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>i</mi><mn>2</mn></msup><mo>=</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">i^2 = i</annotation></semantics></math>. The set of idempotent elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> is denoted by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E(S)</annotation></semantics></math>.</p>
+  <blockquote>
+  <p>Thm: Every finite semigroup has an idempotent element.</p>
+  <p>Proof: Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">a \in S</annotation></semantics></math>. Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> is finite, the sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><msup><mi>a</mi><mn>2</mn></msup><mo>,</mo><msup><mi>a</mi><mn>3</mn></msup><mo>,</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">a, a^2, a^3, \cdots</annotation></semantics></math> must eventually become periodic with period <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> be the first integer such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>k</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mi>p</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a^k = a^{k+p}</annotation></semantics></math>. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>k</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">m = kp</annotation></semantics></math>. Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">m &gt; k</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>m</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mo>+</mo><mi>k</mi><mi>p</mi></mrow></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mo>+</mo><mi>m</mi></mrow></msup><mo>=</mo><msup><mi>a</mi><mrow><mn>2</mn><mi>m</mi></mrow></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>a</mi><mi>m</mi></msup><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">a^m = a^{m + kp} = a^{m+m} = a^{2m} = (a^m)^2</annotation></semantics></math>. Thus, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>a</mi><mi>m</mi></msup><annotation encoding="application/x-tex">a^m</annotation></semantics></math> is an idempotent element.</p>
+  </blockquote>
+  <p>Next time, we will tackle homomorphisms.</p>
+</main>
+
+<footer class="container">
+  </footer>
+ 
+</body>
